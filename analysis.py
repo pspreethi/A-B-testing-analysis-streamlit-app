@@ -448,7 +448,7 @@ def main():
                 st.session_state["summary"] = summary
                 st.session_state["X_test"] = X_test
                 st.session_state["y_test"] = y_test
-                st.experimental_rerun()
+                st.rerun()
 
         if st.session_state["model"] is not None:
             st.subheader("Model Evaluation Results")
