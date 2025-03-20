@@ -165,15 +165,16 @@ def prepare_data(df, selected_features):
 
     return X, y
 
-
+@st.cache_resource
 def train_xgboost_model(X_train, y_train):
-    """Trains an XGBoost classification model."""
+    """Efficiently trains an XGBoost classification model with caching."""
     model = XGBClassifier(
         objective="binary:logistic",
-        eval_metric="logloss",  
-        n_estimators=100,
-        learning_rate=0.05,
-        max_depth=5,
+        eval_metric="logloss",
+        n_estimators=50,  
+        learning_rate=0.1,  
+        max_depth=4,  
+        tree_method="hist",  
         random_state=42
     )
     model.fit(X_train, y_train)
@@ -440,17 +441,28 @@ def main():
             else:
                 st.warning("The result is not statistically significant (p ≥ 0.05).")
 
+        if "model" not in st.session_state:
+            st.session_state["model"] = None
+
         if st.session_state["model"] is None:
             if st.button("Train ML Model"):
-                X, y = prepare_data(df, selected_features)
-                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
-                model = train_xgboost_model(X_train, y_train)
-                evaluate_xgboost_model(model, X_test, y_test)
-                st.session_state["model"] = model
-                st.session_state["summary"] = summary
-                st.session_state["X_test"] = X_test
-                st.session_state["y_test"] = y_test
-                st.rerun()
+                with st.spinner("Training the ML model..."):
+                    X, y = prepare_data(df, selected_features)
+                    X_train, X_test, y_train, y_test = train_test_split(
+                        X, y, test_size=0.2, random_state=42, stratify=y
+                    )
+
+                    model = train_xgboost_model(X_train, y_train)
+
+                    evaluate_xgboost_model(model, X_test, y_test)
+
+                    # Cache results
+                    st.session_state["model"] = model
+                    st.session_state["summary"] = summary
+                    st.session_state["X_test"] = X_test
+                    st.session_state["y_test"] = y_test
+
+                st.toast("Model training completed successfully!", icon="✅")
 
         if st.session_state["model"] is not None:
             st.subheader("Model Evaluation Results")
@@ -470,6 +482,7 @@ def main():
                 st.bar_chart(st.session_state["feature_importance"].set_index("Feature"))
 
             if st.button("Generate PowerPoint Report"):
+
                 TEMPLATE_URL = "https://raw.githubusercontent.com/pspreethi/A-B-testing-analysis-streamlit-app/main/template.pptx"
 
                 # Download file and save it temporarily
@@ -478,6 +491,7 @@ def main():
                     with tempfile.NamedTemporaryFile(delete=False, suffix=".pptx") as tmp:
                         tmp.write(response.content)
                         template_path = tmp.name  # Use this path
+
                     prs = Presentation(template_path)
                     print("Template loaded successfully!")
                 else:
