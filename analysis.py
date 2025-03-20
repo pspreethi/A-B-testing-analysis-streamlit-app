@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pptx import Presentation
 from pptx.util import Inches
+import requests
+import tempfile
 
 st.set_page_config(page_title="A/B Testing Analysis")
 
@@ -468,8 +470,19 @@ def main():
                 st.bar_chart(st.session_state["feature_importance"].set_index("Feature"))
 
             if st.button("Generate PowerPoint Report"):
+                TEMPLATE_URL = "https://raw.githubusercontent.com/pspreethi/A-B-testing-analysis-streamlit-app/main/template.pptx"
 
-                template_path = "template.pptx"
+                # Download file and save it temporarily
+                response = requests.get(TEMPLATE_URL)
+                if response.status_code == 200:
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".pptx") as tmp:
+                        tmp.write(response.content)
+                        template_path = tmp.name  # Use this path
+                    prs = Presentation(template_path)
+                    print("Template loaded successfully!")
+                else:
+                    print("Failed to download the template.")
+
                 test_results = {
                     f"{test_choice} Test": perform_statistical_test(df, test_choice),
                     "Z-Test for Proportions": perform_z_test_for_proportions(summary)
