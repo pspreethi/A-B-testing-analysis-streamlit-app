@@ -32,9 +32,6 @@ A Streamlit-based application for analyzing A/B testing results with statistical
   - `requirements.txt` - Dependencies for the project
   - `template.pptx` - PowerPoint template for reports
 
-
-## Installation  
-
 ## Installation Guide
 
 ### 1. Clone the repository
