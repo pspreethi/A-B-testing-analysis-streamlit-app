@@ -1,0 +1,13 @@
+django-pandas==0.6.7
+matplotlib
+matplotlib-inline
+numpy
+numpydoc
+pandas
+python-pptx==1.0.2
+scikit-learn
+scipy
+seaborn
+statsmodels
+streamlit
+xgboost==2.1.3
