@@ -36,15 +36,15 @@ A Streamlit-based application for analyzing A/B testing results with statistical
 
 ### 1. Clone the repository
 
-git clone https://github.com/pspreethi/A-B-testing-analysis-streamlit-app.git
+git clone https://github.com/pspreethi/A-B-testing-analysis-streamlit-app.git <br>
 cd A-B-testing-analysis-streamlit-app
 
 ### 2. Create a virtual environment (Optional but Recommended)
-On Mac/Linux:
-python -m venv venv
-source venv/bin/activate
-On Windows:
-python -m venv venv
+On Mac/Linux:  
+python -m venv venv<br>
+source venv/bin/activate <br>
+On Windows:  
+python -m venv venv <br>
 venv\Scripts\activate
 
 ### 3. Install dependencies
@@ -57,11 +57,11 @@ streamlit run analysis.py
 
 ## Usage
 
-Upload the dataset in CSV format.
-Map the columns to user_id, group, engagement, conversion, and metric.
-Select a statistical test for significance analysis.
-Train an XGBoost model to predict conversions.
-Generate a PowerPoint report summarizing the results.
+Upload the dataset in CSV format.  
+Map the columns to user_id, group, engagement, conversion, and metric.  
+Select a statistical test for significance analysis.  
+Train an XGBoost model to predict conversions.  
+Generate a PowerPoint report summarizing the results.  
 
 ## License
 This project is open-source and available under the MIT License.
