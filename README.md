@@ -1,6 +1,8 @@
 # A/B Testing Analysis Streamlit App  
 
-A Streamlit-based application for analyzing A/B testing results with statistical tests, machine learning predictions, and automated PowerPoint report generation.  
+A Streamlit-based application for analyzing A/B testing results with statistical tests, machine learning predictions, and automated PowerPoint report generation.
+
+launch App: https://a-b-testing-analysis.streamlit.app/
 
 ## Features  
 
