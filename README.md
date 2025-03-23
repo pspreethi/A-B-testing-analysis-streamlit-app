@@ -2,7 +2,8 @@
 
 A Streamlit-based application for analyzing A/B testing results with statistical tests, machine learning predictions, and automated PowerPoint report generation.
 
-launch App: https://a-b-testing-analysis.streamlit.app/
+Launch App: https://a-b-testing-analysis.streamlit.app/ <br>
+Behind the build: [Building a Self-serve A/B Test Analyzer: My Process](https://medium.com/@pokasaipreethi/building-a-self-serve-a-b-test-analyzer-my-process-b94df391a769)
 
 ## Features  
 
